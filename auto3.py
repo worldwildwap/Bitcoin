@@ -45,22 +45,22 @@ print("autotrade start")
 while True:
     try:
         now = datetime.datetime.now()
-        start_time = get_start_time("KRW-CHZ") #9:00
+        start_time = get_start_time("KRW-BTC") #9:00
         end_time = start_time + datetime.timedelta(days=1) #9:00 + 1일
 
         # 9:00 < 현재 < #8:59:50
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-CHZ", 0.3)
-            ma15 = get_ma15("KRW-CHZ")
-            current_price = get_current_price("KRW-CHZ")
+            target_price = get_target_price("KRW-BTC", 0.4)
+            ma15 = get_ma15("KRW-BTC")
+            current_price = get_current_price("KRW-BTC")
             if target_price < current_price and ma15 < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-CHZ", krw*0.9995)
+                    upbit.buy_market_order("KRW-BTC", krw*0.9995)
         else:
-            sxp = get_balance("CHZ")
-            if sxp > 7.2254:
-                upbit.sell_market_order("KRW-CHZ", sxp*0.9995)
+            btc = get_balance("BTC")
+            if btc > 0.00076:
+                upbit.sell_market_order("KRW-BTC", btc*0.9995)
         time.sleep(1)
     except Exception as e:
         print(e)
